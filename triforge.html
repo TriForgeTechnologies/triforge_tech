@@ -1,0 +1,5605 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <title>TriForge Technologies — Three Minds. One Vision.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0a1628;
+        --navy-2: #0d1f3c;
+        --indigo: #1a2b5c;
+        --indigo-light: #2d4080;
+        --blue: #1e5bdb;
+        --blue-mid: #2563eb;
+        --cyan: #00c2e0;
+        --cyan-light: #22d3ee;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --gray-700: #334155;
+        --gray-800: #1e293b;
+        --gray-900: #0f172a;
+        --gradient-primary: linear-gradient(
+          135deg,
+          #1a2b5c 0%,
+          #1e5bdb 50%,
+          #00c2e0 100%
+        );
+        --gradient-hero: linear-gradient(
+          135deg,
+          #0a1628 0%,
+          #1a2b5c 40%,
+          #0d1f3c 100%
+        );
+        --shadow-sm:
+          0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
+        --shadow-md:
+          0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2);
+        --shadow-lg:
+          0 10px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.25);
+        --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.5);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 24px;
+        --font-display: "Space Grotesk", sans-serif;
+        --font-body: "Inter", sans-serif;
+        --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      /* ── DARK MODE DEFAULT ── */
+      body {
+        font-family: var(--font-body);
+        background: var(--gray-900);
+        color: var(--gray-200);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* ── ANIMATED BACKGROUND PARTICLES ── */
+      #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.35;
+      }
+
+      /* ── TYPOGRAPHY ── */
+      .display-xl {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .display-lg {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+
+      .display-md {
+        font-family: var(--font-display);
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+      }
+
+      .text-gradient {
+        background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* ── NAVIGATION ── */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: 72px;
+        background: rgba(10, 22, 40, 0.85);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        background: rgba(10, 22, 40, 0.97);
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-inner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 85%;
+        max-width: 1800px;
+        margin: 0 auto;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+
+      .logo-badge {
+        width: 55px;
+        height: 55px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
+        margin: 3px;
+
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(240, 248, 255, 0.95)
+        );
+
+        box-shadow:
+          0 8px 30px rgba(0, 0, 0, 0.25),
+          0 0 20px rgba(0, 194, 224, 0.15);
+
+        border: 1px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .nav-logo-img {
+        width: 58px;
+        height: 58px;
+        margin-left: 2px;
+        object-fit: contain;
+      }
+
+      .nav-logo-mark {
+        width: 36px;
+        height: 36px;
+        background: var(--gradient-primary);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-weight: 800;
+        color: white;
+        font-size: 14px;
+      }
+
+      .nav-logo-text {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: white;
+      }
+
+      .nav-logo-sub {
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        display: block;
+        margin-top: -2px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 0.5rem 0.875rem;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+      }
+
+      .nav-links a.active {
+        color: var(--cyan);
+        background: rgba(0, 194, 224, 0.08);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: white;
+        border-radius: 2px;
+        transition: var(--transition);
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: var(--radius-md);
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: var(--transition);
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: var(--blue-mid);
+        color: white;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      }
+
+      .btn-primary:hover {
+        background: #1d4ed8;
+        box-shadow: 0 6px 24px rgba(37, 99, 235, 0.55);
+        transform: translateY(-2px);
+      }
+
+      .btn-ghost-white {
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(8px);
+      }
+
+      .btn-ghost-white:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .btn-cyan {
+        background: var(--cyan);
+        color: var(--navy);
+        box-shadow: 0 4px 14px rgba(0, 194, 224, 0.4);
+      }
+
+      .btn-cyan:hover {
+        background: #00d8fa;
+        box-shadow: 0 6px 24px rgba(0, 194, 224, 0.55);
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.75);
+        border: 1.5px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      .btn-lg {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+        border-radius: var(--radius-lg);
+      }
+
+      .btn-sm {
+        padding: 0.4rem 0.875rem;
+        font-size: 0.8rem;
+      }
+
+      /* ── PAGES ── */
+      .page {
+        display: none;
+        position: relative;
+        z-index: 1;
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        padding: 6rem 0;
+      }
+
+      .container {
+        /* max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem; */
+        width: 90%;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .container-sm {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.875rem;
+        background: rgba(37, 99, 235, 0.15);
+        color: var(--cyan-light);
+        border-radius: 100px;
+        border: 1px solid rgba(0, 194, 224, 0.25);
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+      }
+
+      .section-label.white {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-header .display-md {
+        margin-bottom: 1rem;
+        color: white;
+      }
+
+      .section-header p {
+        color: rgba(255, 255, 255, 0.5);
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.05rem;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        min-height: 100vh;
+        background: var(--gradient-hero);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 8rem 0 5rem;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 80% at 70% 50%,
+            rgba(37, 99, 235, 0.25) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 20% 80%,
+            rgba(0, 194, 224, 0.18) 0%,
+            transparent 50%
+          );
+      }
+
+      .hero-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 1rem;
+        background: rgba(0, 194, 224, 0.12);
+        color: var(--cyan-light);
+        border: 1px solid rgba(0, 194, 224, 0.25);
+        border-radius: 100px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-badge::before {
+        content: "●";
+        font-size: 0.6rem;
+        color: var(--cyan);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      .hero h1 {
+        color: white;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 em {
+        font-style: normal;
+        color: var(--cyan-light);
+      }
+
+      .hero-sub {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.125rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        max-width: 520px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 3.5rem;
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 2.5rem;
+        flex-wrap: wrap;
+      }
+
+      .hero-stat-num {
+        font-family: var(--font-display);
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: white;
+        line-height: 1;
+      }
+
+      .hero-stat-label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 2px;
+      }
+
+      /* ── HERO VISUAL ── */
+      .hero-visual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-card-cluster {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        aspect-ratio: 1/1;
+      }
+
+      .float-card {
+        height: 150px;
+        position: absolute;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem 1.5rem;
+        color: white;
+        animation: floatAnim 6s ease-in-out infinite;
+      }
+
+      .float-card:nth-child(2) {
+        animation-delay: -2s;
+      }
+
+      .float-card:nth-child(3) {
+        animation-delay: -4s;
+      }
+
+      @keyframes floatAnim {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-14px);
+        }
+      }
+
+      .fc-1 {
+        top: 0%;
+        left: 5%;
+        right: 40%;
+      }
+
+      .fc-2 {
+        top: 33%;
+        right: 2%;
+        left: 40%;
+      }
+
+      .fc-3 {
+        bottom: 2%;
+        left: 5%;
+        right: 40%;
+      }
+
+      .float-card .fc-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .float-card .fc-val {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--cyan-light);
+      }
+
+      .float-card .fc-label {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 2px;
+      }
+
+      .central-orb {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 35%,
+          rgba(0, 194, 224, 0.3),
+          rgba(37, 99, 235, 0.4),
+          rgba(26, 43, 92, 0.6)
+        );
+        border: 1.5px solid rgba(0, 194, 224, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        box-shadow:
+          0 0 80px rgba(0, 194, 224, 0.25),
+          inset 0 0 40px rgba(255, 255, 255, 0.05);
+        animation: floatAnim 8s ease-in-out infinite;
+      }
+
+      /* Orbit ring */
+      .orbit-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 194, 224, 0.15);
+        animation: spinOrbit linear infinite;
+        transform-origin: center center;
+      }
+
+      .orbit-ring-1 {
+        width: 280px;
+        height: 280px;
+        margin-top: -140px;
+        margin-left: -140px;
+        animation-duration: 20s;
+      }
+
+      .orbit-ring-2 {
+        width: 380px;
+        height: 380px;
+        margin-top: -190px;
+        margin-left: -190px;
+        animation-duration: 35s;
+        animation-direction: reverse;
+      }
+
+      @keyframes spinOrbit {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .orbit-dot {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: var(--cyan);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--cyan);
+        top: -4px;
+        left: 50%;
+        margin-left: -4px;
+      }
+
+      /* ── GRID LAYOUTS ── */
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .grid-auto {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* ── CARDS (dark default) ── */
+      .card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .card:hover {
+        border-color: rgba(0, 194, 224, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 194, 224, 0.12);
+        transform: translateY(-4px);
+      }
+
+      .card h3 {
+        font-family: var(--font-display);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: white;
+      }
+
+      .card p {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .card-icon.blue {
+        background: rgba(37, 99, 235, 0.18);
+        color: #60a5fa;
+      }
+
+      .card-icon.cyan {
+        background: rgba(0, 194, 224, 0.15);
+        color: var(--cyan-light);
+      }
+
+      .card-icon.navy {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* ── WHY SECTION ── */
+      .why-section {
+        background: rgba(255, 255, 255, 0.015);
+      }
+
+      .feature-card {
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--blue-mid), var(--cyan));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: var(--transition);
+      }
+
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-card:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(0, 194, 224, 0.2);
+        transform: translateY(-3px);
+      }
+
+      .feature-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.65rem;
+      }
+
+      .feature-card p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+        line-height: 1.65;
+      }
+
+      /* ── SERVICE CARDS ── */
+      .service-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .service-card:hover {
+        box-shadow: 0 12px 40px rgba(37, 99, 235, 0.2);
+        border-color: rgba(0, 194, 224, 0.35);
+        transform: translateY(-4px);
+      }
+
+      .service-card .svc-num {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--cyan);
+        letter-spacing: 0.06em;
+        margin-bottom: 1rem;
+        opacity: 0.7;
+      }
+
+      .service-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: white;
+      }
+
+      .service-card p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tech-tag {
+        padding: 0.25rem 0.625rem;
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.55);
+        border-radius: 100px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .tech-tag.blue {
+        background: rgba(37, 99, 235, 0.15);
+        color: #93c5fd;
+        border-color: rgba(37, 99, 235, 0.2);
+      }
+
+      /* ══════════════════════════════════════════
+   TECH STACK PAGE — REDESIGNED
+══════════════════════════════════════════ */
+      .ts-hero {
+        padding-top: 72px;
+        background: var(--gradient-hero);
+        padding-bottom: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .ts-hero-inner {
+        position: relative;
+        z-index: 1;
+        padding: 4rem 0 0;
+      }
+
+      /* Category tabs */
+      .ts-tabs {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 3.5rem;
+      }
+
+      .ts-tab {
+        padding: 0.55rem 1.5rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .ts-tab:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      .ts-tab.active {
+        background: linear-gradient(
+          135deg,
+          rgba(37, 99, 235, 0.5),
+          rgba(0, 194, 224, 0.4)
+        );
+        border-color: rgba(0, 194, 224, 0.5);
+        color: white;
+        box-shadow: 0 0 24px rgba(0, 194, 224, 0.2);
+      }
+
+      /* Tech grid */
+      .ts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .ts-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-xl);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: default;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .ts-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 80% 80% at 50% 0%,
+          rgba(0, 194, 224, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .ts-card:hover::before {
+        opacity: 1;
+      }
+
+      .ts-card:hover {
+        border-color: rgba(0, 194, 224, 0.4);
+        transform: translateY(-6px) scale(1.02);
+        box-shadow:
+          0 16px 40px rgba(0, 194, 224, 0.15),
+          0 0 0 1px rgba(0, 194, 224, 0.2);
+      }
+
+      .ts-card-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+        position: relative;
+        z-index: 1;
+      }
+
+      .ts-card:hover .ts-card-icon {
+        background: rgba(0, 194, 224, 0.1);
+        border-color: rgba(0, 194, 224, 0.3);
+      }
+
+      .ts-card-name {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 0.4rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ts-card-type {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ts-level {
+        display: flex;
+        gap: 3px;
+        justify-content: center;
+        margin-top: 0.75rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ts-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        transition: var(--transition);
+      }
+
+      .ts-dot.filled {
+        background: var(--cyan);
+      }
+
+      .ts-card:hover .ts-dot.filled {
+        box-shadow: 0 0 6px var(--cyan);
+      }
+
+      /* Category section headers */
+      .ts-section {
+        padding: 4rem 0;
+      }
+
+      .ts-cat-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .ts-cat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+      }
+
+      .ts-cat-icon.fe {
+        background: rgba(37, 99, 235, 0.2);
+        border: 1px solid rgba(37, 99, 235, 0.3);
+      }
+
+      .ts-cat-icon.be {
+        background: rgba(0, 194, 224, 0.15);
+        border: 1px solid rgba(0, 194, 224, 0.25);
+      }
+
+      .ts-cat-icon.db {
+        background: rgba(139, 92, 246, 0.15);
+        border: 1px solid rgba(139, 92, 246, 0.25);
+      }
+
+      .ts-cat-icon.cl {
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+      }
+
+      .ts-cat-icon.ai {
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+      }
+
+      .ts-cat-icon.tl {
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
+
+      .ts-cat-title {
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .ts-cat-sub {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 1px;
+      }
+
+      .ts-divider {
+        height: 1px;
+        background: linear-gradient(90deg, rgba(0, 194, 224, 0.3), transparent);
+        margin-bottom: 3rem;
+      }
+
+      /* Expertise matrix in tech page */
+      .ts-matrix {
+        margin-top: 5rem;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: var(--radius-xl);
+      }
+
+      .ts-matrix-row {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .ts-matrix-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        min-width: 180px;
+      }
+
+      .ts-matrix-bar {
+        flex: 1;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 100px;
+        overflow: hidden;
+      }
+
+      .ts-matrix-fill {
+        height: 100%;
+        border-radius: 100px;
+        background: linear-gradient(90deg, var(--blue-mid), var(--cyan));
+        width: 0%;
+        transition: width 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .ts-matrix-pct {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--cyan-light);
+        min-width: 36px;
+        text-align: right;
+      }
+
+      /* ── INDUSTRIES ── */
+      .industry-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+        transition: var(--transition);
+      }
+
+      .industry-card:hover {
+        border-color: rgba(0, 194, 224, 0.3);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-3px);
+      }
+
+      .industry-card .ind-icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .industry-card h4 {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      /* ── PROCESS ── */
+      .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0;
+        position: relative;
+      }
+
+      .process-steps::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, var(--blue-mid), var(--cyan));
+        z-index: 0;
+        opacity: 0.5;
+      }
+
+      .process-step {
+        text-align: center;
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step-num {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        color: white;
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        box-shadow:
+          0 0 0 6px var(--gray-900),
+          0 0 0 8px rgba(37, 99, 235, 0.3);
+      }
+
+      .process-step h4 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+      }
+
+      .process-step p {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.5;
+      }
+
+      /* ── CTA ── */
+      .cta-section {
+        background: var(--gradient-hero);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        color: white;
+      }
+
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 70% 70% at 50% 50%,
+          rgba(37, 99, 235, 0.35) 0%,
+          transparent 70%
+        );
+      }
+
+      .cta-section .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-section h2 {
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      .cta-section p {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 1.05rem;
+        margin-bottom: 2.5rem;
+        max-width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* ── ABOUT ── */
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .value-card {
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-left: 3px solid var(--blue-mid);
+        transition: var(--transition);
+      }
+
+      .value-card:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-left-color: var(--cyan);
+        box-shadow: var(--shadow-md);
+      }
+
+      .value-card .val-icon {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .value-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: white;
+      }
+
+      .value-card p {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.6;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 3rem;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 1.25rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, var(--blue-mid), var(--cyan));
+        opacity: 0.5;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 2.5rem;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -2.5rem;
+        top: 4px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--blue-mid);
+        border: 3px solid var(--gray-900);
+        box-shadow:
+          0 0 0 2px var(--blue-mid),
+          0 0 16px rgba(37, 99, 235, 0.4);
+      }
+
+      .timeline-year {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.25rem;
+      }
+
+      .timeline-item h4 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.4rem;
+      }
+
+      .timeline-item p {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.6;
+      }
+
+      /* ── SOLUTIONS ── */
+      .solution-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-xl);
+        padding: 2.5rem;
+        transition: var(--transition);
+      }
+
+      .solution-card:hover {
+        box-shadow: 0 16px 50px rgba(37, 99, 235, 0.2);
+        border-color: rgba(0, 194, 224, 0.3);
+        transform: translateY(-4px);
+      }
+
+      .solution-card .sol-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .sol-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .sol-blue {
+        background: rgba(37, 99, 235, 0.18);
+        color: #60a5fa;
+      }
+
+      .sol-cyan {
+        background: rgba(0, 194, 224, 0.15);
+        color: var(--cyan-light);
+      }
+
+      .sol-navy {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .solution-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+      }
+
+      .solution-card p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        margin-bottom: 1.5rem;
+      }
+
+      .benefit-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .benefit-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .benefit-list li::before {
+        content: "✓";
+        color: var(--cyan);
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      /* ── CONTACT ── */
+      .contact-form {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-xl);
+        padding: 3rem;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1.5px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-md);
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: white;
+        background: rgba(255, 255, 255, 0.06);
+        transition: var(--transition);
+        outline: none;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--cyan);
+        box-shadow: 0 0 0 3px rgba(0, 194, 224, 0.12);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 140px;
+      }
+
+      .form-group select option {
+        background: var(--gray-800);
+        color: white;
+      }
+
+      /* ── CONTACT INFO ── */
+      .contact-info-card {
+        background: rgba(10, 22, 40, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: white;
+        border-radius: var(--radius-xl);
+        padding: 3rem;
+      }
+
+      .contact-info-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: white;
+      }
+
+      .contact-info-card > p {
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 2.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .contact-item-icon {
+        width: 42px;
+        height: 42px;
+        background: rgba(0, 194, 224, 0.1);
+        border: 1px solid rgba(0, 194, 224, 0.2);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.125rem;
+        flex-shrink: 0;
+      }
+
+      .contact-item-text .ci-label {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 2px;
+      }
+
+      .contact-item-text .ci-val {
+        color: white;
+        font-weight: 500;
+      }
+
+      /* ── FAQ ── */
+      .faq-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 1.5rem 0;
+      }
+
+      .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        gap: 1rem;
+      }
+
+      .faq-question h4 {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .faq-toggle {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.875rem;
+        transition: var(--transition);
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .faq-answer {
+        padding-top: 1rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9rem;
+        line-height: 1.7;
+        display: none;
+      }
+
+      .faq-item.open .faq-answer {
+        display: block;
+      }
+
+      .faq-item.open .faq-toggle {
+        background: var(--blue-mid);
+        color: white;
+        border-color: var(--blue-mid);
+        transform: rotate(45deg);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        background: rgba(5, 10, 20, 0.98);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        color: white;
+        padding: 5rem 0 2rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+        gap: 3rem;
+        margin-bottom: 4rem;
+      }
+
+      .footer-brand p {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.875rem;
+        line-height: 1.7;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-social {
+        display: flex;
+        /* gap: 0.75rem; */
+        gap: 12px;
+      }
+
+      .social-btn {
+        /* width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition); */
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        border-radius: 12px;
+
+        color: #ffffff;
+        text-decoration: none;
+
+        transition: all 0.3s ease;
+      }
+
+      .social-btn i {
+        font-size: 18px;
+      }
+
+      .social-btn:hover {
+        background: rgba(37, 99, 235, 0.3);
+        border-color: rgba(37, 99, 235, 0.5);
+        color: white;
+      }
+
+      .footer-col h4 {
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 1.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--cyan-light);
+      }
+
+      .footer-newsletter input {
+        width: 100%;
+        padding: 0.625rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
+        color: white;
+        font-size: 0.875rem;
+        outline: none;
+        border-bottom: none;
+      }
+
+      .footer-newsletter input::placeholder {
+        color: rgba(255, 255, 255, 0.25);
+      }
+
+      .footer-newsletter button {
+        width: 100%;
+        padding: 0.625rem;
+        border: none;
+        background: var(--blue-mid);
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .footer-newsletter button:hover {
+        background: #1d4ed8;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-bottom p {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.8rem;
+      }
+
+      .footer-bottom-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-bottom-links a {
+        color: rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: var(--transition);
+      }
+
+      .footer-bottom-links a:hover {
+        color: white;
+      }
+
+      /* ── WHATSAPP ── */
+      .wa-float {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 999;
+        width: 56px;
+        height: 56px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+        transition: var(--transition);
+        animation: waPulse 3s ease-in-out infinite;
+      }
+
+      @keyframes waPulse {
+        0%,
+        100% {
+          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        50% {
+          box-shadow:
+            0 4px 32px rgba(37, 211, 102, 0.8),
+            0 0 0 8px rgba(37, 211, 102, 0.1);
+        }
+      }
+
+      .wa-float:hover {
+        transform: scale(1.1);
+      }
+
+      /* ── MOBILE NAV ── */
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 22, 40, 0.98);
+        backdrop-filter: blur(20px);
+        z-index: 999;
+        padding: 2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        overflow-y: auto;
+      }
+
+      .mobile-nav.open {
+        display: flex;
+      }
+
+      .mobile-nav a {
+        display: block;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        transition: var(--transition);
+      }
+
+      .mobile-nav a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+      }
+
+      /* ── SCROLL REVEAL ANIMATIONS ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .reveal-left.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .reveal-right.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.92);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .reveal-scale.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Stagger children */
+      .stagger-children > * {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+
+      .stagger-children.visible > *:nth-child(1) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.05s;
+      }
+
+      .stagger-children.visible > *:nth-child(2) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.12s;
+      }
+
+      .stagger-children.visible > *:nth-child(3) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.19s;
+      }
+
+      .stagger-children.visible > *:nth-child(4) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.26s;
+      }
+
+      .stagger-children.visible > *:nth-child(5) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.33s;
+      }
+
+      .stagger-children.visible > *:nth-child(6) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.4s;
+      }
+
+      .stagger-children.visible > *:nth-child(7) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.47s;
+      }
+
+      .stagger-children.visible > *:nth-child(8) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.54s;
+      }
+
+      .stagger-children.visible > *:nth-child(9) {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0.61s;
+      }
+
+      /* ── GLOW LINES ── */
+      .glow-line {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 194, 224, 0.4),
+          transparent
+        );
+        margin: 0 auto;
+      }
+
+      /* ── BLUEPRINT CARDS ── */
+      .blueprint-card {
+        background: rgba(255, 255, 255, 0.04);
+        color: white;
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        transition: var(--transition);
+      }
+
+      .blueprint-card:hover {
+        border-color: rgba(0, 194, 224, 0.35);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 194, 224, 0.1);
+      }
+
+      .blueprint-card .bp-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .blueprint-card h3 {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: white;
+      }
+
+      .blueprint-card p {
+        font-size: 0.825rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.6;
+        margin-bottom: 1.25rem;
+      }
+
+      .bp-tag {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        background: rgba(0, 194, 224, 0.1);
+        color: var(--cyan-light);
+        border: 1px solid rgba(0, 194, 224, 0.2);
+        border-radius: 100px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-right: 0.4rem;
+        margin-bottom: 0.4rem;
+      }
+
+      /* ── MATRIX ── */
+      .matrix-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .matrix-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.65);
+        min-width: 160px;
+      }
+
+      .matrix-bar {
+        flex: 1;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 100px;
+        overflow: hidden;
+      }
+
+      .matrix-fill {
+        height: 100%;
+        border-radius: 100px;
+        background: linear-gradient(90deg, var(--blue-mid), var(--cyan));
+        width: 0%;
+        transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .matrix-pct {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--cyan-light);
+        min-width: 36px;
+        text-align: right;
+      }
+
+      /* ── PARTNER SLOTS ── */
+      .partner-slots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .partner-slot {
+        border: 2px dashed rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-lg);
+        padding: 2rem 1rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+      }
+
+      .partner-slot:hover {
+        border-color: rgba(0, 194, 224, 0.4);
+        color: var(--cyan-light);
+        background: rgba(0, 194, 224, 0.04);
+      }
+
+      .partner-slot .ps-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .partner-slot p {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      /* ── CAREERS ── */
+      .job-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        transition: var(--transition);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .job-card:hover {
+        box-shadow: var(--shadow-md);
+        border-color: rgba(0, 194, 224, 0.25);
+        transform: translateX(4px);
+      }
+
+      .job-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.35rem;
+        color: white;
+      }
+
+      .job-card p {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .job-badge {
+        padding: 0.3rem 0.75rem;
+        border-radius: 100px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .badge-remote {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+
+      .badge-onsite {
+        background: rgba(37, 99, 235, 0.15);
+        color: #93c5fd;
+        border: 1px solid rgba(37, 99, 235, 0.2);
+      }
+
+      .badge-hybrid {
+        background: rgba(139, 92, 246, 0.15);
+        color: #c4b5fd;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+      }
+
+      /* ── HERO CTA GLOW BUTTON ── */
+      .btn-glow {
+        animation: btnGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes btnGlow {
+        0%,
+        100% {
+          box-shadow: 0 4px 14px rgba(0, 194, 224, 0.4);
+        }
+
+        50% {
+          box-shadow:
+            0 4px 28px rgba(0, 194, 224, 0.7),
+            0 0 60px rgba(0, 194, 224, 0.2);
+        }
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .footer-brand {
+          grid-column: 1/-1;
+        }
+
+        .footer-newsletter {
+          grid-column: 1/-1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 4rem 0;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-visual {
+          display: none;
+        }
+
+        .grid-3,
+        .grid-4 {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .process-steps::before {
+          display: none;
+        }
+
+        .process-steps {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .ts-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-actions {
+          flex-direction: column;
+        }
+
+        .btn-lg {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .process-steps {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- PARTICLE CANVAS -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" onclick="return navigate('home');">
+          <div class="logo-badge">
+            <img src="assets/logo.png" alt="TriForge" class="nav-logo-img" />
+          </div>
+
+          <div>
+            <span class="nav-logo-text">TriForge</span>
+            <span class="nav-logo-sub">Technologies</span>
+          </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a
+              href="#"
+              onclick="return navigate('home');"
+              data-page="home"
+              class="active"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="return navigate('about');" data-page="about"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              onclick="return navigate('services');"
+              data-page="services"
+              >Services</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              onclick="return navigate('solutions');"
+              data-page="solutions"
+              >Solutions</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              onclick="return navigate('techstack');"
+              data-page="techstack"
+              >Tech Stack</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="return navigate('faq');" data-page="faq"
+              >FAQ</a
+            >
+          </li>
+        </ul>
+        <div class="nav-actions">
+          <a
+            href="#"
+            class="btn btn-cyan btn-sm btn-glow"
+            onclick="return navigate('contact');"
+            >Contact Us</a
+          >
+          <div class="hamburger" onclick="toggleMobile()" id="hamburger">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav" id="mobileNav">
+      <a
+        href="#"
+        onclick="
+          navigate('home');
+          toggleMobile();
+        "
+        >🏠 Home</a
+      >
+      <a
+        href="#"
+        onclick="
+          navigate('about');
+          toggleMobile();
+        "
+        >🏢 About Us</a
+      >
+      <a
+        href="#"
+        onclick="
+          navigate('services');
+          toggleMobile();
+        "
+        >⚙️ Services</a
+      >
+      <a
+        href="#"
+        onclick="
+          navigate('solutions');
+          toggleMobile();
+        "
+        >💡 Solutions</a
+      >
+      <a
+        href="#"
+        onclick="
+          navigate('techstack');
+          toggleMobile();
+        "
+        >🔧 Tech Stack</a
+      >
+      <a
+        href="#"
+        onclick="
+          navigate('faq');
+          toggleMobile();
+        "
+        >❓ FAQ</a
+      >
+      <a
+        href="#"
+        onclick="
+          navigate('contact');
+          toggleMobile();
+        "
+        style="color: var(--cyan); font-weight: 700"
+        >📩 Contact Us</a
+      >
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════ -->
+    <div class="page active" id="page-home">
+      <section class="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="hero-badge">🚀 indian's Emerging Tech Force</div>
+              <h1 class="display-xl">
+                Engineering<br /><em>Tomorrow's</em><br />Digital Future
+              </h1>
+              <p class="hero-sub">
+                TriForge Technologies crafts bespoke software, cloud solutions,
+                and AI-powered systems that transform how businesses operate,
+                scale, and compete.
+              </p>
+              <div class="hero-actions">
+                <a
+                  href="#"
+                  class="btn btn-cyan btn-lg btn-glow"
+                  onclick="return navigate('contact');"
+                  >📅 Schedule Consultation</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-ghost-white btn-lg"
+                  onclick="return navigate('services');"
+                  >Explore Services →</a
+                >
+              </div>
+              <div class="hero-stats">
+                <div>
+                  <div class="hero-stat-num">10+</div>
+                  <div class="hero-stat-label">Technology Domains</div>
+                </div>
+                <div>
+                  <div class="hero-stat-num">3</div>
+                  <div class="hero-stat-label">Expert Founders</div>
+                </div>
+                <div>
+                  <div class="hero-stat-num">∞</div>
+                  <div class="hero-stat-label">Growth Potential</div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-visual">
+              <div class="hero-card-cluster">
+                <div class="orbit-ring orbit-ring-1">
+                  <div class="orbit-dot"></div>
+                </div>
+                <div class="orbit-ring orbit-ring-2">
+                  <div class="orbit-dot"></div>
+                </div>
+                <!-- <div class="central-orb">⚡</div>   -->
+                <div class="float-card fc-1">
+                  <div class="fc-icon">🤖</div>
+                  <div class="fc-val">AI-Ready</div>
+                  <div class="fc-label">Automation Solutions</div>
+                </div>
+                <div class="float-card fc-2">
+                  <div class="fc-icon">☁️</div>
+                  <div class="fc-val">Cloud-Native</div>
+                  <div class="fc-label">AWS · Azure · GCP</div>
+                </div>
+                <div class="float-card fc-3">
+                  <div class="fc-icon">📱</div>
+                  <div class="fc-val">Full-Stack</div>
+                  <div class="fc-label">Web · Mobile · Enterprise</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY CHOOSE -->
+      <section class="why-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Why TriForge</div>
+            <p class="display-md">
+              Built Different.
+              <span class="text-gradient">Engineered for Results.</span>
+            </p>
+            <p>
+              Three minds with one unified vision—delivering technology
+              solutions that don't just solve today's problems but architect
+              tomorrow's opportunities.
+            </p>
+          </div>
+          <div class="grid-3 stagger-children">
+            <div class="feature-card">
+              <div class="card-icon blue">🎯</div>
+              <h3>Precision Engineering</h3>
+              <p>
+                Every solution is architected with surgical precision—no
+                cookie-cutter templates. Clean, maintainable, scalable code that
+                grows with your business.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="card-icon cyan">🧠</div>
+              <h3>Three Minds, One Vision</h3>
+              <p>
+                Our founding team brings complementary expertise across design,
+                engineering, and business strategy. A complete digital partner,
+                not just a dev shop.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="card-icon navy">⚡</div>
+              <h3>Velocity Without Sacrifice</h3>
+              <p>
+                Agile delivery that ships fast without cutting corners. Modern
+                CI/CD pipelines and iterative feedback loops keep quality high
+                at speed.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="card-icon blue">🔒</div>
+              <h3>Security by Default</h3>
+              <p>
+                Security baked into architecture from day one. OWASP best
+                practices, encrypted data at rest and in transit, regular
+                security audits.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="card-icon cyan">🌐</div>
+              <h3>Global Standards, Local Understanding</h3>
+              <p>
+                International engineering standards combined with deep
+                understanding of regional market dynamics, regulations, and
+                business culture.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="card-icon navy">📈</div>
+              <h3>Long-Term Partnership</h3>
+              <p>
+                We're not project vendors—we're growth partners. Our support
+                extends well beyond launch, with maintenance and strategic
+                technology advisory.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CORE CAPABILITIES -->
+      <section>
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Core Capabilities</div>
+            <p class="display-md">
+              What We <span class="text-gradient">Build Best</span>
+            </p>
+            <p>
+              From idea to production—we cover the complete technology
+              lifecycle.
+            </p>
+          </div>
+          <div class="grid-auto stagger-children">
+            <div class="card">
+              <div class="card-icon blue">💻</div>
+              <h3>Custom Software</h3>
+              <p>
+                Bespoke applications engineered around your exact business
+                logic, workflows, and scalability requirements.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon cyan">📱</div>
+              <h3>Mobile Development</h3>
+              <p>
+                Native and cross-platform mobile apps for iOS and Android that
+                users actually enjoy using.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon navy">🌐</div>
+              <h3>Web Platforms</h3>
+              <p>
+                High-performance web applications built on modern React,
+                Next.js, and Angular stacks.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon blue">☁️</div>
+              <h3>Cloud Architecture</h3>
+              <p>
+                Multi-cloud infrastructure design, migration, and optimization
+                across AWS, Azure, and Google Cloud.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon cyan">🤖</div>
+              <h3>AI & Automation</h3>
+              <p>
+                Intelligent automation, ML model integration, and AI-powered
+                workflow optimization.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon navy">🔌</div>
+              <h3>API & Integrations</h3>
+              <p>
+                RESTful and GraphQL APIs, third-party integrations, and
+                enterprise system connectivity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INDUSTRIES -->
+      <section class="why-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Industries We Serve</div>
+            <p class="display-md">
+              Sector-Specific <span class="text-gradient">Expertise</span>
+            </p>
+            <p>
+              Deep domain knowledge across industries lets us build solutions
+              that understand your business context.
+            </p>
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+              gap: 1rem;
+            "
+            class="stagger-children"
+          >
+            <div class="industry-card">
+              <div class="ind-icon">🏭</div>
+              <h4>Manufacturing</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">🏥</div>
+              <h4>Healthcare</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">🛍️</div>
+              <h4>Retail & E-Commerce</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">🚚</div>
+              <h4>Logistics</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">🎓</div>
+              <h4>Education</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">🚀</div>
+              <h4>Startups</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">🏢</div>
+              <h4>Enterprise</h4>
+            </div>
+            <div class="industry-card">
+              <div class="ind-icon">💰</div>
+              <h4>FinTech</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECH STACK PREVIEW -->
+      <section
+        style="
+          background: rgba(10, 22, 40, 0.6);
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background:
+              radial-gradient(
+                ellipse 60% 60% at 20% 50%,
+                rgba(37, 99, 235, 0.12) 0%,
+                transparent 60%
+              ),
+              radial-gradient(
+                ellipse 40% 40% at 80% 80%,
+                rgba(0, 194, 224, 0.08) 0%,
+                transparent 50%
+              );
+            pointer-events: none;
+          "
+        ></div>
+        <div class="container" style="position: relative; z-index: 1">
+          <div class="section-header reveal">
+            <div class="section-label white">Technology Stack</div>
+            <p class="display-md">
+              Battle-Tested <span class="text-gradient">Technologies</span>
+            </p>
+            <p>
+              We work exclusively with proven, enterprise-grade tools—no
+              experimental stack that breaks in production.
+            </p>
+          </div>
+          <div class="grid-4 stagger-children">
+            <div
+              style="
+                padding: 1.5rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: var(--radius-lg);
+              "
+            >
+              <div
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  color: var(--cyan);
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                Frontend
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.6rem">
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(37, 99, 235, 0.15);
+                    border: 1px solid rgba(37, 99, 235, 0.2);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >React</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(37, 99, 235, 0.15);
+                    border: 1px solid rgba(37, 99, 235, 0.2);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Next.js</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(37, 99, 235, 0.15);
+                    border: 1px solid rgba(37, 99, 235, 0.2);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Angular</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(37, 99, 235, 0.15);
+                    border: 1px solid rgba(37, 99, 235, 0.2);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Flutter</span
+                >
+              </div>
+            </div>
+            <div
+              style="
+                padding: 1.5rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: var(--radius-lg);
+              "
+            >
+              <div
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  color: var(--cyan);
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                Backend
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.6rem">
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(0, 194, 224, 0.12);
+                    border: 1px solid rgba(0, 194, 224, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Node.js</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(0, 194, 224, 0.12);
+                    border: 1px solid rgba(0, 194, 224, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >.NET</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(0, 194, 224, 0.12);
+                    border: 1px solid rgba(0, 194, 224, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Python</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(0, 194, 224, 0.12);
+                    border: 1px solid rgba(0, 194, 224, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Java</span
+                >
+              </div>
+            </div>
+            <div
+              style="
+                padding: 1.5rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: var(--radius-lg);
+              "
+            >
+              <div
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  color: var(--cyan);
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                Cloud
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.6rem">
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(245, 158, 11, 0.12);
+                    border: 1px solid rgba(245, 158, 11, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >AWS</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(245, 158, 11, 0.12);
+                    border: 1px solid rgba(245, 158, 11, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >Azure</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(245, 158, 11, 0.12);
+                    border: 1px solid rgba(245, 158, 11, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >GCP</span
+                >
+              </div>
+            </div>
+            <div
+              style="
+                padding: 1.5rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: var(--radius-lg);
+              "
+            >
+              <div
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  color: var(--cyan);
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                Database
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.6rem">
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(139, 92, 246, 0.12);
+                    border: 1px solid rgba(139, 92, 246, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >PostgreSQL</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(139, 92, 246, 0.12);
+                    border: 1px solid rgba(139, 92, 246, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >MongoDB</span
+                >
+                <span
+                  style="
+                    padding: 0.4rem 0.875rem;
+                    background: rgba(139, 92, 246, 0.12);
+                    border: 1px solid rgba(139, 92, 246, 0.18);
+                    border-radius: 100px;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                  "
+                  >MySQL</span
+                >
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 3rem">
+            <a
+              href="#"
+              class="btn btn-ghost-white"
+              onclick="return navigate('techstack');"
+              >View Full Tech Stack →</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- DELIVERY PROCESS -->
+      <section>
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">How We Work</div>
+            <p class="display-md">
+              Our <span class="text-gradient">Delivery Framework</span>
+            </p>
+            <p>
+              A proven seven-stage process refined for predictability, quality,
+              and client confidence at every step.
+            </p>
+          </div>
+          <div class="process-steps stagger-children">
+            <div class="process-step">
+              <div class="step-num">1</div>
+              <h4>Discovery</h4>
+              <p>Deep-dive into your goals, constraints, and success metrics</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">2</div>
+              <h4>Planning</h4>
+              <p>Technical architecture, roadmap, and resource allocation</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">3</div>
+              <h4>Design</h4>
+              <p>UX research, wireframes, prototypes, and design systems</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">4</div>
+              <h4>Development</h4>
+              <p>Sprint-based agile build with continuous integration</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">5</div>
+              <h4>Testing</h4>
+              <p>Automated and manual QA across all devices and scenarios</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">6</div>
+              <h4>Deployment</h4>
+              <p>Zero-downtime release with full monitoring and rollback</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">7</div>
+              <h4>Support</h4>
+              <p>
+                Ongoing maintenance, performance optimization, and iteration
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOLUTION BLUEPRINTS -->
+      <section class="why-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Solution Blueprints</div>
+            <p class="display-md">
+              Ready-to-Deploy <span class="text-gradient">Frameworks</span>
+            </p>
+            <p>
+              Pre-architected solution frameworks for common enterprise
+              transformation challenges.
+            </p>
+          </div>
+          <div class="grid-3 stagger-children">
+            <div class="blueprint-card">
+              <div class="bp-icon">🏭</div>
+              <h3>Manufacturing Traceability Blueprint</h3>
+              <p>
+                End-to-end supply chain visibility with IoT sensor integration,
+                real-time dashboards, and audit trails.
+              </p>
+              <span class="bp-tag">IoT</span
+              ><span class="bp-tag">Blockchain</span
+              ><span class="bp-tag">ERP</span>
+            </div>
+            <div class="blueprint-card">
+              <div class="bp-icon">🤖</div>
+              <h3>AI Automation Blueprint</h3>
+              <p>
+                Intelligent document processing, workflow automation, and
+                predictive analytics stack for operations teams.
+              </p>
+              <span class="bp-tag">ML/AI</span><span class="bp-tag">RPA</span
+              ><span class="bp-tag">NLP</span>
+            </div>
+            <div class="blueprint-card">
+              <div class="bp-icon">📱</div>
+              <h3>Mobile Commerce Blueprint</h3>
+              <p>
+                React Native storefront, headless CMS, payment gateways, and
+                real-time inventory sync.
+              </p>
+              <span class="bp-tag">React Native</span
+              ><span class="bp-tag">Stripe</span><span class="bp-tag">PWA</span>
+            </div>
+            <div class="blueprint-card">
+              <div class="bp-icon">🏗️</div>
+              <h3>ERP Modernization Blueprint</h3>
+              <p>
+                Legacy system migration, API-first architecture, and modern
+                frontend with zero operational disruption.
+              </p>
+              <span class="bp-tag">Microservices</span
+              ><span class="bp-tag">API</span><span class="bp-tag">Cloud</span>
+            </div>
+            <div class="blueprint-card">
+              <div class="bp-icon">🏭</div>
+              <h3>Smart Factory Blueprint</h3>
+              <p>
+                Industry 4.0 readiness: SCADA integration, predictive
+                maintenance models, and digital twin architecture.
+              </p>
+              <span class="bp-tag">Industry 4.0</span
+              ><span class="bp-tag">SCADA</span
+              ><span class="bp-tag">Digital Twin</span>
+            </div>
+            <div class="blueprint-card">
+              <div class="bp-icon">💊</div>
+              <h3>Healthcare SaaS Blueprint</h3>
+              <p>
+                HIPAA-compliant patient management platform with telemedicine,
+                HL7 FHIR, and billing integration.
+              </p>
+              <span class="bp-tag">HIPAA</span><span class="bp-tag">FHIR</span
+              ><span class="bp-tag">Telemedicine</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- READINESS MATRIX -->
+      <section>
+        <div class="container-sm">
+          <div class="section-header reveal">
+            <div class="section-label">Technology Readiness</div>
+            <p class="display-md">
+              Expertise <span class="text-gradient">Matrix</span>
+            </p>
+            <p>
+              Transparent view of our capability depth across technology
+              domains.
+            </p>
+          </div>
+          <div class="reveal" id="matrixSection">
+            <div class="matrix-row">
+              <span class="matrix-label">Web Technologies</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="95" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">95%</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">Mobile Development</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="90" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">90%</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">Cloud Platforms</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="88" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">88%</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">AI & ML Solutions</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="82" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">82%</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">Enterprise Systems</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="85" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">85%</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">UI/UX Design</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="92" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">92%</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">Database Architecture</span>
+              <div class="matrix-bar">
+                <div class="matrix-fill" data-pct="87" style="width: 0%"></div>
+              </div>
+              <span class="matrix-pct">87%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PARTNERSHIPS -->
+      <section class="why-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Future Partnerships</div>
+            <p class="display-md">
+              Building
+              <span class="text-gradient">Success Stories Together</span>
+            </p>
+            <p>
+              We're actively seeking forward-thinking companies ready to build
+              something extraordinary.
+            </p>
+          </div>
+          <div class="partner-slots stagger-children">
+            <div class="partner-slot">
+              <div class="ps-icon">🌟</div>
+              <p>Your Success Story Here</p>
+            </div>
+            <div class="partner-slot">
+              <div class="ps-icon">🚀</div>
+              <p>Innovation Partner</p>
+            </div>
+            <div class="partner-slot">
+              <div class="ps-icon">🤝</div>
+              <p>Growth Collaborator</p>
+            </div>
+            <div class="partner-slot">
+              <div class="ps-icon">💡</div>
+              <p>Technology Ally</p>
+            </div>
+            <div class="partner-slot">
+              <div class="ps-icon">🎯</div>
+              <p>Strategic Partner</p>
+            </div>
+            <div
+              class="partner-slot"
+              style="
+                border-style: solid;
+                border-color: rgba(0, 194, 224, 0.3);
+                background: rgba(0, 194, 224, 0.04);
+              "
+            >
+              <div class="ps-icon">➕</div>
+              <p style="color: var(--cyan-light)">Be Our Next Partner</p>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 2.5rem">
+            <a
+              href="#"
+              class="btn btn-primary"
+              onclick="return navigate('contact');"
+              >Start a Conversation →</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-section">
+        <div class="container">
+          <div class="reveal">
+            <div
+              class="section-label white"
+              style="display: inline-flex; margin-bottom: 1.5rem"
+            >
+              Ready to Transform?
+            </div>
+            <h2 class="display-lg">Let's Build Something<br />That Matters</h2>
+            <p>
+              From MVP to enterprise scale—TriForge Technologies is your
+              technology partner for every stage of the journey.
+            </p>
+            <div
+              style="
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+              "
+            >
+              <a
+                href="#"
+                class="btn btn-cyan btn-lg btn-glow"
+                onclick="return navigate('contact');"
+                >📅 Schedule Free Consultation</a
+              >
+              <a
+                href="#"
+                class="btn btn-ghost-white btn-lg"
+                onclick="return navigate('services');"
+                >View Our Services</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════ -->
+    <div class="page" id="page-about">
+      <div
+        style="
+          padding-top: 72px;
+          background: var(--gradient-hero);
+          padding-bottom: 5rem;
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div class="hero-bg-grid"></div>
+        <div
+          class="container"
+          style="position: relative; z-index: 1; padding-top: 4rem"
+        >
+          <div
+            class="section-label white"
+            style="display: inline-flex; margin-bottom: 1.5rem"
+          >
+            Our Story
+          </div>
+          <h1 class="display-xl" style="color: white; margin-bottom: 1.25rem">
+            Three Minds.<br /><span style="color: var(--cyan-light)"
+              >One Vision.</span
+            >
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.65);
+              font-size: 1.125rem;
+              max-width: 580px;
+              line-height: 1.7;
+            "
+          >
+            TriForge Technologies was born from a simple conviction: great
+            software requires equal parts technical mastery, creative thinking,
+            and strategic foresight—united under one roof.
+          </p>
+        </div>
+      </div>
+      <section>
+        <div class="container">
+          <div class="grid-2" style="align-items: center; gap: 5rem">
+            <div class="reveal-left">
+              <div class="section-label" style="margin-bottom: 1.5rem">
+                Our Origin
+              </div>
+              <h2
+                class="display-md"
+                style="margin-bottom: 1.25rem; color: white"
+              >
+                Why We Started TriForge
+              </h2>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.5);
+                  line-height: 1.8;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                We saw businesses struggling with the same fundamental problem:
+                technology partners who were either technically brilliant but
+                strategically blind, or visionary but unable to execute. The
+                market had vendors. It lacked partners.
+              </p>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.5);
+                  line-height: 1.8;
+                  margin-bottom: 1.25rem;
+                "
+              >
+                TriForge Technologies was founded to fill that gap. Three
+                co-founders with distinct but complementary
+                expertise—engineering, design, and product strategy—came
+                together with the belief that the best technology solutions
+                emerge when these disciplines are deeply integrated.
+              </p>
+              <p style="color: rgba(255, 255, 255, 0.5); line-height: 1.8">
+                The name says it all: three forces forged into one.
+              </p>
+            </div>
+            <div class="reveal-right">
+              <div
+                style="
+                  background: rgba(255, 255, 255, 0.04);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  border-radius: var(--radius-xl);
+                  padding: 2.5rem;
+                "
+              >
+                <div class="section-label" style="margin-bottom: 1.5rem">
+                  Mission & Vision
+                </div>
+                <div style="margin-bottom: 2rem">
+                  <h4
+                    style="
+                      font-family: var(--font-display);
+                      font-weight: 600;
+                      color: white;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    🎯 Our Mission
+                  </h4>
+                  <p
+                    style="
+                      color: rgba(255, 255, 255, 0.5);
+                      font-size: 0.925rem;
+                      line-height: 1.7;
+                    "
+                  >
+                    To democratize access to world-class technology
+                    solutions—enabling businesses of every size to harness the
+                    full power of digital transformation and compete on a global
+                    stage.
+                  </p>
+                </div>
+                <div
+                  style="
+                    border-top: 1px solid rgba(255, 255, 255, 0.07);
+                    padding-top: 2rem;
+                  "
+                >
+                  <h4
+                    style="
+                      font-family: var(--font-display);
+                      font-weight: 600;
+                      color: white;
+                      margin-bottom: 0.5rem;
+                    "
+                  >
+                    🔭 Our Vision
+                  </h4>
+                  <p
+                    style="
+                      color: rgba(255, 255, 255, 0.5);
+                      font-size: 0.925rem;
+                      line-height: 1.7;
+                    "
+                  >
+                    To become the most trusted technology partner for
+                    growth-stage companies in South Asia and beyond—known not
+                    just for what we build, but how we build it and the results
+                    we create together.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="why-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Our DNA</div>
+            <p class="display-md">
+              The Values That <span class="text-gradient">Drive Us</span>
+            </p>
+          </div>
+          <div class="values-grid stagger-children">
+            <div class="value-card">
+              <div class="val-icon">🔬</div>
+              <h3>Technical Excellence</h3>
+              <p>
+                We hold our code to the standard of engineers at the world's
+                best companies. Clean architecture, thorough documentation,
+                robust testing are non-negotiable.
+              </p>
+            </div>
+            <div class="value-card">
+              <div class="val-icon">🤝</div>
+              <h3>Client Partnership</h3>
+              <p>
+                Your success is our success. We measure ourselves by business
+                outcomes achieved and relationships deepened, not deliverables
+                shipped.
+              </p>
+            </div>
+            <div class="value-card">
+              <div class="val-icon">💡</div>
+              <h3>Relentless Innovation</h3>
+              <p>
+                Comfortable is dangerous in technology. We invest in staying
+                ahead of the curve so our clients benefit from emerging tech
+                before it becomes expected.
+              </p>
+            </div>
+            <div class="value-card">
+              <div class="val-icon">🌱</div>
+              <h3>Sustainable Growth</h3>
+              <p>
+                We build for longevity. Every architecture decision and
+                technology choice is made with five-year scalability in mind.
+              </p>
+            </div>
+            <div class="value-card">
+              <div class="val-icon">🪟</div>
+              <h3>Radical Transparency</h3>
+              <p>
+                No hidden costs, no scope surprises, no vague timelines. Clear
+                communication at every stage is how we build lasting trust.
+              </p>
+            </div>
+            <div class="value-card">
+              <div class="val-icon">🎨</div>
+              <h3>Craft & Aesthetics</h3>
+              <p>
+                Software should be beautiful to use, not just functional. We
+                bring product design thinking to every engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-header reveal">
+            <div class="section-label">Leadership</div>
+            <p class="display-md">
+              The TriForge <span class="text-gradient">Leadership Team</span>
+            </p>
+          </div>
+          <div class="grid-3 stagger-children">
+            <div class="card" style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  border-radius: 50%;
+                  background: var(--gradient-primary);
+                  margin: 0 auto 1.25rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.75rem;
+                "
+              >
+                👨‍💻
+              </div>
+              <h3>Engineering Lead</h3>
+              <p
+                style="
+                  color: var(--cyan-light);
+                  font-size: 0.8rem;
+                  font-weight: 600;
+                  margin-bottom: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.04em;
+                "
+              >
+                Co-Founder
+              </p>
+              <p>
+                Architects the technical foundation. Responsible for engineering
+                standards, code quality, and technology direction across all
+                engagements.
+              </p>
+            </div>
+            <div class="card" style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  border-radius: 50%;
+                  background: linear-gradient(135deg, #0891b2, #00c2e0);
+                  margin: 0 auto 1.25rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.75rem;
+                "
+              >
+                🎨
+              </div>
+              <h3>Design Lead</h3>
+              <p
+                style="
+                  color: var(--cyan-light);
+                  font-size: 0.8rem;
+                  font-weight: 600;
+                  margin-bottom: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.04em;
+                "
+              >
+                Co-Founder
+              </p>
+              <p>
+                Champions the user experience. Ensures every interface is
+                intuitive, accessible, and genuinely delightful—not just
+                compliant with a wireframe.
+              </p>
+            </div>
+            <div class="card" style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  border-radius: 50%;
+                  background: linear-gradient(135deg, #1a2b5c, #2d4080);
+                  margin: 0 auto 1.25rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.75rem;
+                "
+              >
+                📊
+              </div>
+              <h3>Strategy Lead</h3>
+              <p
+                style="
+                  color: var(--cyan-light);
+                  font-size: 0.8rem;
+                  font-weight: 600;
+                  margin-bottom: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.04em;
+                "
+              >
+                Co-Founder
+              </p>
+              <p>
+                Bridges technology and business impact. Aligns every technical
+                decision to measurable outcomes and long-term organizational
+                goals.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="why-section">
+        <div class="container-sm">
+          <div class="section-header reveal">
+            <div class="section-label">Growth Roadmap</div>
+            <p class="display-md">
+              Where We're <span class="text-gradient">Headed</span>
+            </p>
+          </div>
+          <div class="timeline reveal">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">Foundation</div>
+              <h4>Company Launch & Core Team Formation</h4>
+              <p>
+                TriForge Technologies is founded. Core service offerings
+                established. First client engagements initiated.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">Growth Phase</div>
+              <h4>Portfolio Expansion & Service Deepening</h4>
+              <p>
+                Cloud solutions and AI/automation capabilities added. Dedicated
+                practices for industry verticals: manufacturing, healthcare, and
+                retail. Team expansion to 15+ engineers.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">Scale Phase</div>
+              <h4>Regional Leadership & Enterprise Clients</h4>
+              <p>
+                Establish TriForge as a premier technology partner in South
+                Asia. Launch enterprise managed services, expand to UAE and
+                beyond.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">Vision 2030</div>
+              <h4>Global Technology Brand</h4>
+              <p>
+                TriForge recognized globally for innovation in AI, smart
+                manufacturing, and digital health. Strategic partnerships with
+                major cloud providers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: SERVICES
+══════════════════════════════════════ -->
+    <div class="page" id="page-services">
+      <div
+        style="
+          padding-top: 72px;
+          background: var(--gradient-hero);
+          padding-bottom: 5rem;
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div class="hero-bg-grid"></div>
+        <div
+          class="container"
+          style="
+            position: relative;
+            z-index: 1;
+            padding-top: 4rem;
+            text-align: center;
+          "
+        >
+          <div
+            class="section-label white"
+            style="display: inline-flex; margin-bottom: 1.5rem"
+          >
+            What We Do
+          </div>
+          <h1 class="display-xl" style="color: white; margin-bottom: 1.25rem">
+            Services That
+            <span style="color: var(--cyan-light)">Move Businesses</span>
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.65);
+              font-size: 1.1rem;
+              max-width: 560px;
+              margin: 0 auto;
+              line-height: 1.7;
+            "
+          >
+            A comprehensive suite of technology services—from first line of code
+            to enterprise deployment and beyond.
+          </p>
+        </div>
+      </div>
+      <section>
+        <div class="container">
+          <div class="grid-3 stagger-children">
+            <div class="service-card">
+              <div class="svc-num">01</div>
+              <div class="card-icon blue">💻</div>
+              <h3>Custom Software Development</h3>
+              <p>
+                Purpose-built applications that fit your exact workflows—not the
+                other way around. From CRMs to ERPs to bespoke operational
+                tools.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">React</span
+                ><span class="tech-tag blue">Node.js</span
+                ><span class="tech-tag blue">.NET</span
+                ><span class="tech-tag">Python</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">02</div>
+              <div class="card-icon cyan">📱</div>
+              <h3>Mobile App Development</h3>
+              <p>
+                iOS and Android apps that people actually use. Native
+                performance, beautiful design, and deep platform integration.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">Flutter</span
+                ><span class="tech-tag blue">React Native</span
+                ><span class="tech-tag">Swift</span
+                ><span class="tech-tag">Kotlin</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">03</div>
+              <div class="card-icon navy">🌐</div>
+              <h3>Web Development</h3>
+              <p>
+                Fast, accessible, SEO-optimized web platforms—from marketing
+                sites to complex multi-tenant SaaS applications.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">Next.js</span
+                ><span class="tech-tag blue">React</span
+                ><span class="tech-tag">Angular</span
+                ><span class="tech-tag">TypeScript</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">04</div>
+              <div class="card-icon blue">☁️</div>
+              <h3>Cloud Solutions</h3>
+              <p>
+                Design, migrate, and optimize your cloud infrastructure for
+                maximum performance, reliability, and cost efficiency.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">AWS</span
+                ><span class="tech-tag blue">Azure</span
+                ><span class="tech-tag blue">GCP</span
+                ><span class="tech-tag">Terraform</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">05</div>
+              <div class="card-icon cyan">🤖</div>
+              <h3>AI & Automation</h3>
+              <p>
+                Intelligent automation that eliminates repetitive work and ML
+                systems that surface insights hidden in your data.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">Python</span
+                ><span class="tech-tag blue">TensorFlow</span
+                ><span class="tech-tag">OpenAI API</span
+                ><span class="tech-tag">LangChain</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">06</div>
+              <div class="card-icon navy">🏢</div>
+              <h3>Enterprise Applications</h3>
+              <p>
+                Mission-critical enterprise software—ERP modules, HR systems,
+                supply chain platforms—built for reliability at scale.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">.NET</span
+                ><span class="tech-tag blue">Java</span
+                ><span class="tech-tag">Microservices</span
+                ><span class="tech-tag">Docker</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">07</div>
+              <div class="card-icon blue">🎨</div>
+              <h3>UI/UX Design</h3>
+              <p>
+                Design systems and user interfaces that balance aesthetics with
+                usability—built on research, validated by testing.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">Figma</span
+                ><span class="tech-tag">Adobe XD</span
+                ><span class="tech-tag">Storybook</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">08</div>
+              <div class="card-icon cyan">🔌</div>
+              <h3>API Development & Integration</h3>
+              <p>
+                Robust API design and seamless third-party integrations that
+                connect your technology ecosystem into a unified whole.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag blue">REST</span
+                ><span class="tech-tag blue">GraphQL</span
+                ><span class="tech-tag">Swagger</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <div class="svc-num">09</div>
+              <div class="card-icon navy">💼</div>
+              <h3>IT Consulting & Digital Transformation</h3>
+              <p>
+                Strategic technology advisory that maps your digital
+                transformation journey from current state to target
+                architecture.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Strategy</span
+                ><span class="tech-tag">Architecture</span
+                ><span class="tech-tag">Agile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="cta-section">
+        <div class="container" style="text-align: center">
+          <div class="reveal">
+            <h2 class="display-md" style="color: white; margin-bottom: 1rem">
+              Not Sure Where to Start?
+            </h2>
+            <p>
+              Schedule a free 30-minute discovery call. We'll listen to your
+              challenges and recommend the right approach—no sales pitch, no
+              obligation.
+            </p>
+            <a
+              href="#"
+              class="btn btn-cyan btn-lg"
+              onclick="return navigate('contact');"
+              >Book Free Discovery Call</a
+            >
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: SOLUTIONS
+══════════════════════════════════════ -->
+    <div class="page" id="page-solutions">
+      <div
+        style="
+          padding-top: 72px;
+          background: var(--gradient-hero);
+          padding-bottom: 5rem;
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div class="hero-bg-grid"></div>
+        <div
+          class="container"
+          style="
+            position: relative;
+            z-index: 1;
+            padding-top: 4rem;
+            text-align: center;
+          "
+        >
+          <div
+            class="section-label white"
+            style="display: inline-flex; margin-bottom: 1.5rem"
+          >
+            Industry Solutions
+          </div>
+          <h1 class="display-xl" style="color: white; margin-bottom: 1.25rem">
+            Sector-Specific
+            <span style="color: var(--cyan-light)">Solutions</span>
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.65);
+              font-size: 1.1rem;
+              max-width: 560px;
+              margin: 0 auto;
+              line-height: 1.7;
+            "
+          >
+            Tailored technology solutions built on deep understanding of each
+            industry's unique challenges, regulations, and growth opportunities.
+          </p>
+        </div>
+      </div>
+      <section>
+        <div class="container">
+          <div class="grid-2 stagger-children">
+            <div class="solution-card">
+              <div class="sol-header">
+                <div class="sol-icon sol-blue">🏭</div>
+                <div>
+                  <h3>Manufacturing</h3>
+                  <p>
+                    Smart factory transformation, production tracking, and
+                    supply chain visibility
+                  </p>
+                </div>
+              </div>
+              <ul class="benefit-list">
+                <li>
+                  Real-time production floor monitoring and OEE dashboards
+                </li>
+                <li>Automated quality control with computer vision</li>
+                <li>Supply chain traceability and blockchain integration</li>
+                <li>Predictive maintenance reducing unplanned downtime</li>
+                <li>ERP integration (SAP, Oracle, custom)</li>
+              </ul>
+            </div>
+            <div class="solution-card">
+              <div class="sol-header">
+                <div class="sol-icon sol-cyan">🏥</div>
+                <div>
+                  <h3>Healthcare</h3>
+                  <p>
+                    Patient-centric digital health platforms with compliance at
+                    the core
+                  </p>
+                </div>
+              </div>
+              <ul class="benefit-list">
+                <li>Patient management and EMR/EHR systems</li>
+                <li>Telemedicine platform development</li>
+                <li>HIPAA-compliant cloud architecture</li>
+                <li>HL7 FHIR integration with existing systems</li>
+                <li>Medical device software and IoT connectivity</li>
+              </ul>
+            </div>
+            <div class="solution-card">
+              <div class="sol-header">
+                <div class="sol-icon sol-blue">🛍️</div>
+                <div>
+                  <h3>Retail & E-Commerce</h3>
+                  <p>
+                    Omnichannel commerce platforms that convert browsers into
+                    buyers
+                  </p>
+                </div>
+              </div>
+              <ul class="benefit-list">
+                <li>Headless commerce architecture</li>
+                <li>Real-time inventory management</li>
+                <li>AI-powered product recommendations</li>
+                <li>Multi-payment gateway integration</li>
+                <li>Customer data platform and analytics</li>
+              </ul>
+            </div>
+            <div class="solution-card">
+              <div class="sol-header">
+                <div class="sol-icon sol-navy">🚚</div>
+                <div>
+                  <h3>Logistics & Supply Chain</h3>
+                  <p>
+                    End-to-end visibility and optimization for complex supply
+                    networks
+                  </p>
+                </div>
+              </div>
+              <ul class="benefit-list">
+                <li>Fleet management and real-time GPS tracking</li>
+                <li>Route optimization with ML algorithms</li>
+                <li>Warehouse management system (WMS)</li>
+                <li>Last-mile delivery tracking for customers</li>
+                <li>Carbon footprint monitoring and reporting</li>
+              </ul>
+            </div>
+            <div class="solution-card">
+              <div class="sol-header">
+                <div class="sol-icon sol-cyan">🎓</div>
+                <div>
+                  <h3>Education & EdTech</h3>
+                  <p>
+                    Learning platforms that engage students and empower
+                    educators
+                  </p>
+                </div>
+              </div>
+              <ul class="benefit-list">
+                <li>Learning Management System (LMS) development</li>
+                <li>Adaptive learning with AI personalization</li>
+                <li>Live class and recording infrastructure</li>
+                <li>Student progress analytics</li>
+                <li>Parent portal and communication tools</li>
+              </ul>
+            </div>
+            <div class="solution-card">
+              <div class="sol-header">
+                <div class="sol-icon sol-blue">🚀</div>
+                <div>
+                  <h3>Startups & Scale-ups</h3>
+                  <p>
+                    From MVP to market—the technical foundation for hypergrowth
+                  </p>
+                </div>
+              </div>
+              <ul class="benefit-list">
+                <li>MVP development in 8–12 weeks</li>
+                <li>Product architecture designed for Series A scale</li>
+                <li>Investor-ready technical documentation</li>
+                <li>Growth engineering and conversion optimization</li>
+                <li>Co-founder-style engagement model</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        style="
+          background: rgba(10, 22, 40, 0.7);
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+              ellipse 60% 60% at 80% 50%,
+              rgba(37, 99, 235, 0.15) 0%,
+              transparent 60%
+            );
+          "
+        ></div>
+        <div class="container" style="position: relative; z-index: 1">
+          <div class="section-header reveal">
+            <div class="section-label white">Innovation Lab</div>
+            <p class="display-md">
+              Future <span class="text-gradient">Technology Concepts</span>
+            </p>
+            <p>
+              Our innovation lab is where tomorrow's products take
+              shape—research directions and future product concepts we're
+              actively exploring.
+            </p>
+          </div>
+          <div class="grid-3 stagger-children">
+            <div class="card">
+              <div style="font-size: 2rem; margin-bottom: 1rem">🧠</div>
+              <h3>Generative AI for Business</h3>
+              <p>
+                Enterprise-grade AI applications using large language models for
+                document intelligence, automated reporting, and decision support
+                systems.
+              </p>
+            </div>
+            <div class="card">
+              <div style="font-size: 2rem; margin-bottom: 1rem">🌐</div>
+              <h3>Edge Computing Solutions</h3>
+              <p>
+                Processing intelligence at the network edge for IoT
+                applications—reducing latency, bandwidth costs, and cloud
+                dependency for real-time industrial use cases.
+              </p>
+            </div>
+            <div class="card">
+              <div style="font-size: 2rem; margin-bottom: 1rem">🔗</div>
+              <h3>Blockchain for Enterprise</h3>
+              <p>
+                Supply chain provenance tracking, smart contract automation, and
+                decentralized identity management for industries requiring
+                immutable audit trails.
+              </p>
+            </div>
+            <div class="card">
+              <div style="font-size: 2rem; margin-bottom: 1rem">👁️</div>
+              <h3>Computer Vision at Scale</h3>
+              <p>
+                Visual quality inspection, object detection pipelines, and
+                automated surveillance analytics for manufacturing, retail, and
+                security applications.
+              </p>
+            </div>
+            <div class="card">
+              <div style="font-size: 2rem; margin-bottom: 1rem">🏗️</div>
+              <h3>Digital Twin Platform</h3>
+              <p>
+                Virtual replicas of physical assets enabling simulation,
+                predictive modeling, and real-time operational optimization for
+                smart factories.
+              </p>
+            </div>
+            <div class="card">
+              <div style="font-size: 2rem; margin-bottom: 1rem">🔒</div>
+              <h3>Zero-Trust Security Framework</h3>
+              <p>
+                Next-generation security architecture eliminating implicit trust
+                from enterprise networks—identity-centric access control with
+                continuous verification.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: TECH STACK — REDESIGNED
+══════════════════════════════════════ -->
+    <div class="page" id="page-techstack">
+      <div class="ts-hero">
+        <div class="hero-bg-grid"></div>
+        <div class="container ts-hero-inner" style="text-align: center">
+          <div
+            class="section-label white"
+            style="display: inline-flex; margin-bottom: 1.5rem"
+          >
+            Our Arsenal
+          </div>
+          <h1 class="display-xl" style="color: white; margin-bottom: 1rem">
+            Technology <span style="color: var(--cyan-light)">Stack</span>
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.6);
+              font-size: 1.1rem;
+              max-width: 540px;
+              margin: 0 auto 3rem;
+              line-height: 1.7;
+            "
+          >
+            Carefully curated, battle-tested technologies chosen for
+            performance, developer experience, and enterprise reliability.
+          </p>
+
+          <!-- Filter Tabs -->
+          <div class="ts-tabs reveal" id="tsTabs">
+            <button class="ts-tab active" onclick="filterTech('all', this)">
+              All Technologies
+            </button>
+            <button class="ts-tab" onclick="filterTech('frontend', this)">
+              Frontend
+            </button>
+            <button class="ts-tab" onclick="filterTech('backend', this)">
+              Backend
+            </button>
+            <button class="ts-tab" onclick="filterTech('database', this)">
+              Database
+            </button>
+            <button class="ts-tab" onclick="filterTech('cloud', this)">
+              Cloud & DevOps
+            </button>
+            <button class="ts-tab" onclick="filterTech('ai', this)">
+              AI & ML
+            </button>
+            <button class="ts-tab" onclick="filterTech('tools', this)">
+              Tools
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <section style="padding-top: 4rem">
+        <div class="container">
+          <!-- All tech cards with data-category -->
+          <div class="ts-grid" id="tsGrid">
+            <!-- FRONTEND -->
+            <div class="ts-card" data-cat="frontend">
+              <div class="ts-card-icon">⚛️</div>
+              <div class="ts-card-name">React</div>
+              <div class="ts-card-type">Frontend Library</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="frontend">
+              <div class="ts-card-icon">▲</div>
+              <div class="ts-card-name">Next.js</div>
+              <div class="ts-card-type">React Framework</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="frontend">
+              <div class="ts-card-icon">🔺</div>
+              <div class="ts-card-name">Angular</div>
+              <div class="ts-card-type">Frontend Framework</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="frontend">
+              <div class="ts-card-icon">💙</div>
+              <div class="ts-card-name">Flutter</div>
+              <div class="ts-card-type">Cross-Platform UI</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="frontend">
+              <div class="ts-card-icon">🔷</div>
+              <div class="ts-card-name">TypeScript</div>
+              <div class="ts-card-type">Typed JavaScript</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="frontend">
+              <div class="ts-card-icon">🎨</div>
+              <div class="ts-card-name">Tailwind CSS</div>
+              <div class="ts-card-type">Utility CSS</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <!-- BACKEND -->
+            <div class="ts-card" data-cat="backend">
+              <div class="ts-card-icon">🟩</div>
+              <div class="ts-card-name">Node.js</div>
+              <div class="ts-card-type">JavaScript Runtime</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="backend">
+              <div class="ts-card-icon">🔷</div>
+              <div class="ts-card-name">.NET</div>
+              <div class="ts-card-type">Microsoft Platform</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="backend">
+              <div class="ts-card-icon">☕</div>
+              <div class="ts-card-name">Java</div>
+              <div class="ts-card-type">Enterprise Language</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="backend">
+              <div class="ts-card-icon">🐍</div>
+              <div class="ts-card-name">Python</div>
+              <div class="ts-card-type">Versatile Language</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="backend">
+              <div class="ts-card-icon">🚀</div>
+              <div class="ts-card-name">FastAPI</div>
+              <div class="ts-card-type">Python Framework</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="backend">
+              <div class="ts-card-icon">⚡</div>
+              <div class="ts-card-name">Express.js</div>
+              <div class="ts-card-type">Node Framework</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <!-- DATABASE -->
+            <div class="ts-card" data-cat="database">
+              <div class="ts-card-icon">🐘</div>
+              <div class="ts-card-name">PostgreSQL</div>
+              <div class="ts-card-type">Relational DB</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="database">
+              <div class="ts-card-icon">🍃</div>
+              <div class="ts-card-name">MongoDB</div>
+              <div class="ts-card-type">Document DB</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="database">
+              <div class="ts-card-icon">🐬</div>
+              <div class="ts-card-name">MySQL</div>
+              <div class="ts-card-type">Relational DB</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="database">
+              <div class="ts-card-icon">📦</div>
+              <div class="ts-card-name">Redis</div>
+              <div class="ts-card-type">In-Memory Cache</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="database">
+              <div class="ts-card-icon">🔎</div>
+              <div class="ts-card-name">Elasticsearch</div>
+              <div class="ts-card-type">Search Engine</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <!-- CLOUD -->
+            <div class="ts-card" data-cat="cloud">
+              <div class="ts-card-icon">🟠</div>
+              <div class="ts-card-name">AWS</div>
+              <div class="ts-card-type">Cloud Platform</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="cloud">
+              <div class="ts-card-icon">🔵</div>
+              <div class="ts-card-name">Azure</div>
+              <div class="ts-card-type">Cloud Platform</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="cloud">
+              <div class="ts-card-icon">🌈</div>
+              <div class="ts-card-name">Google Cloud</div>
+              <div class="ts-card-type">Cloud Platform</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="cloud">
+              <div class="ts-card-icon">🐳</div>
+              <div class="ts-card-name">Docker</div>
+              <div class="ts-card-type">Containerization</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="cloud">
+              <div class="ts-card-icon">☸️</div>
+              <div class="ts-card-name">Kubernetes</div>
+              <div class="ts-card-type">Orchestration</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="cloud">
+              <div class="ts-card-icon">🔧</div>
+              <div class="ts-card-name">Terraform</div>
+              <div class="ts-card-type">Infrastructure as Code</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <!-- AI -->
+            <div class="ts-card" data-cat="ai">
+              <div class="ts-card-icon">🧠</div>
+              <div class="ts-card-name">TensorFlow</div>
+              <div class="ts-card-type">ML Framework</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="ai">
+              <div class="ts-card-icon">🔥</div>
+              <div class="ts-card-name">PyTorch</div>
+              <div class="ts-card-type">Deep Learning</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="ai">
+              <div class="ts-card-icon">🔗</div>
+              <div class="ts-card-name">LangChain</div>
+              <div class="ts-card-type">LLM Framework</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="ai">
+              <div class="ts-card-icon">🤗</div>
+              <div class="ts-card-name">HuggingFace</div>
+              <div class="ts-card-type">Model Hub</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="ai">
+              <div class="ts-card-icon">📊</div>
+              <div class="ts-card-name">scikit-learn</div>
+              <div class="ts-card-type">ML Library</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <!-- TOOLS -->
+            <div class="ts-card" data-cat="tools">
+              <div class="ts-card-icon">🐙</div>
+              <div class="ts-card-name">GitHub</div>
+              <div class="ts-card-type">Version Control</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="tools">
+              <div class="ts-card-icon">🎨</div>
+              <div class="ts-card-name">Figma</div>
+              <div class="ts-card-type">Design Tool</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="tools">
+              <div class="ts-card-icon">🎯</div>
+              <div class="ts-card-name">Jira</div>
+              <div class="ts-card-type">Project Management</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="tools">
+              <div class="ts-card-icon">⚡</div>
+              <div class="ts-card-name">GitHub Actions</div>
+              <div class="ts-card-type">CI/CD</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+            <div class="ts-card" data-cat="tools">
+              <div class="ts-card-icon">📡</div>
+              <div class="ts-card-name">Grafana</div>
+              <div class="ts-card-type">Observability</div>
+              <div class="ts-level">
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot filled"></div>
+                <div class="ts-dot"></div>
+                <div class="ts-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expertise Matrix inside Tech Stack -->
+          <div class="ts-matrix reveal" id="tsMatrix">
+            <div
+              class="section-header"
+              style="text-align: left; margin-bottom: 2rem"
+            >
+              <div class="section-label" style="margin-bottom: 0.75rem">
+                Expertise Depth
+              </div>
+              <p class="display-md" style="color: white; margin-bottom: 0">
+                Capability <span class="text-gradient">Readiness</span>
+              </p>
+            </div>
+            <div class="ts-matrix-row">
+              <span class="ts-matrix-label">Web Technologies</span>
+              <div class="ts-matrix-bar">
+                <div
+                  class="ts-matrix-fill"
+                  data-pct="95"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="ts-matrix-pct">95%</span>
+            </div>
+            <div class="ts-matrix-row">
+              <span class="ts-matrix-label">Mobile Development</span>
+              <div class="ts-matrix-bar">
+                <div
+                  class="ts-matrix-fill"
+                  data-pct="90"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="ts-matrix-pct">90%</span>
+            </div>
+            <div class="ts-matrix-row">
+              <span class="ts-matrix-label">Cloud Platforms</span>
+              <div class="ts-matrix-bar">
+                <div
+                  class="ts-matrix-fill"
+                  data-pct="88"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="ts-matrix-pct">88%</span>
+            </div>
+            <div class="ts-matrix-row">
+              <span class="ts-matrix-label">AI & ML Solutions</span>
+              <div class="ts-matrix-bar">
+                <div
+                  class="ts-matrix-fill"
+                  data-pct="82"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="ts-matrix-pct">82%</span>
+            </div>
+            <div class="ts-matrix-row">
+              <span class="ts-matrix-label">Enterprise Systems</span>
+              <div class="ts-matrix-bar">
+                <div
+                  class="ts-matrix-fill"
+                  data-pct="85"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="ts-matrix-pct">85%</span>
+            </div>
+            <div class="ts-matrix-row">
+              <span class="ts-matrix-label">UI/UX Design</span>
+              <div class="ts-matrix-bar">
+                <div
+                  class="ts-matrix-fill"
+                  data-pct="92"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="ts-matrix-pct">92%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: FAQ
+══════════════════════════════════════ -->
+    <div class="page" id="page-faq">
+      <div
+        style="
+          padding-top: 72px;
+          background: var(--gradient-hero);
+          padding-bottom: 5rem;
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div class="hero-bg-grid"></div>
+        <div
+          class="container"
+          style="
+            position: relative;
+            z-index: 1;
+            padding-top: 4rem;
+            text-align: center;
+          "
+        >
+          <div
+            class="section-label white"
+            style="display: inline-flex; margin-bottom: 1.5rem"
+          >
+            FAQ
+          </div>
+          <h1 class="display-xl" style="color: white; margin-bottom: 1.25rem">
+            Common <span style="color: var(--cyan-light)">Questions</span>
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.65);
+              font-size: 1.1rem;
+              max-width: 500px;
+              margin: 0 auto;
+              line-height: 1.7;
+            "
+          >
+            Straight answers to the questions clients ask us most. No corporate
+            jargon.
+          </p>
+        </div>
+      </div>
+      <section>
+        <div class="container-sm">
+          <div class="reveal">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>
+                  How do you handle projects when TriForge is a new company?
+                </h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Being newly founded doesn't mean inexperienced. Our co-founders
+                bring years of professional engineering, design, and delivery
+                experience from prior companies and freelance work. We apply
+                rigorous processes—discovery workshops, formal requirements,
+                sprint planning, code reviews, and structured QA—and we put our
+                full attention on every engagement because each client
+                relationship is foundational to our growth.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>
+                  What's your typical project timeline and how do you estimate
+                  cost?
+                </h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Timelines vary by scope. A focused MVP typically runs 8–12
+                weeks. A full enterprise application might be 4–9 months. We
+                provide detailed project estimates after a discovery session
+                where we understand your requirements, constraints, and success
+                criteria. Pricing is transparent and milestone-based—you never
+                receive an invoice that surprises you.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>Do you work with international clients?</h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Absolutely. We work with clients in the UK, UAE, and beyond. Our
+                team is comfortable with remote-first collaboration using tools
+                like Slack, Notion, Figma, and GitHub. We're flexible on time
+                zones and maintain clear async communication norms so
+                international clients always have visibility into project
+                progress.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>Who owns the code and IP after the project?</h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                You do. Upon final payment, all code, design assets,
+                documentation, and related IP transfer fully to the client. We
+                don't use proprietary frameworks or locked-in tooling. Our goal
+                is for you to be able to take what we build and run with it—with
+                or without us.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>What does your post-launch support look like?</h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                We offer tiered maintenance packages covering bug fixes,
+                security patching, infrastructure monitoring, and feature
+                iterations. Standard post-launch support includes a 30-day
+                warranty period for any defects. Beyond that, clients can choose
+                monthly retainer arrangements from light-touch monitoring to
+                fully managed development bandwidth.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>How do you handle confidentiality and data security?</h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                We sign NDAs before any substantive project discussions.
+                Internally, we follow strict data handling protocols: no client
+                data stored on personal devices, encrypted communications, and
+                access control policies that follow the principle of least
+                privilege. For regulated industries like healthcare, we
+                explicitly architect systems for compliance from the ground up.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>
+                  What makes TriForge different from a typical outsourcing firm?
+                </h4>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Three key differences: (1) You get a founding team personally
+                invested in the outcome. (2) Our architecture decisions are made
+                for your long-term scalability, not fast billing. (3) We think
+                like product owners—we'll push back on requirements that don't
+                serve users and proactively suggest better approaches.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════ -->
+    <div class="page" id="page-contact">
+      <div
+        style="
+          padding-top: 72px;
+          background: var(--gradient-hero);
+          padding-bottom: 5rem;
+          position: relative;
+          overflow: hidden;
+        "
+      >
+        <div class="hero-bg-grid"></div>
+        <div
+          class="container"
+          style="
+            position: relative;
+            z-index: 1;
+            padding-top: 4rem;
+            text-align: center;
+          "
+        >
+          <div
+            class="section-label white"
+            style="display: inline-flex; margin-bottom: 1.5rem"
+          >
+            Get In Touch
+          </div>
+          <h1 class="display-xl" style="color: white; margin-bottom: 1.25rem">
+            Let's Start a
+            <span style="color: var(--cyan-light)">Conversation</span>
+          </h1>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.65);
+              font-size: 1.1rem;
+              max-width: 520px;
+              margin: 0 auto;
+              line-height: 1.7;
+            "
+          >
+            Whether you have a project in mind, a problem to solve, or just want
+            to explore what's possible—we'd love to hear from you.
+          </p>
+        </div>
+      </div>
+      <section>
+        <div class="container">
+          <div class="grid-2 reveal" style="align-items: start; gap: 3rem">
+            <div class="contact-form">
+              <h3
+                style="
+                  font-family: var(--font-display);
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                  color: white;
+                "
+              >
+                Send Us a Message
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.45);
+                  margin-bottom: 2rem;
+                  font-size: 0.9rem;
+                "
+              >
+                We respond to all inquiries within 24 hours, usually much
+                sooner.
+              </p>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>First Name *</label
+                  ><input type="text" placeholder="Jhon" />
+                </div>
+                <div class="form-group">
+                  <label>Last Name *</label
+                  ><input type="text" placeholder="Doe" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label
+                ><input type="email" placeholder="john@company.com" />
+              </div>
+              <div class="form-group">
+                <label>Company / Organization</label
+                ><input type="text" placeholder="Your Company Name" />
+              </div>
+              <div class="form-group">
+                <label>Service of Interest</label>
+                <select>
+                  <option value="">Select a service...</option>
+                  <option>Custom Software Development</option>
+                  <option>Mobile App Development</option>
+                  <option>Web Development</option>
+                  <option>Cloud Solutions</option>
+                  <option>AI & Automation</option>
+                  <option>Enterprise Applications</option>
+                  <option>UI/UX Design</option>
+                  <option>IT Consulting</option>
+                  <option>Other / Not Sure Yet</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Project Budget Range</label>
+                <select>
+                  <option value="">Select a range...</option>
+                  <option>Under INR 500K</option>
+                  <option>INR 500K – 2M</option>
+                  <option>INR 2M – 5M</option>
+                  <option>INR 5M – 15M</option>
+                  <option>Above INR 15M</option>
+                  <option>Let's discuss</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tell Us About Your Project *</label
+                ><textarea
+                  placeholder="Describe your project, goals, timeline, and any specific requirements..."
+                ></textarea>
+              </div>
+              <button
+                class="btn btn-cyan btn-lg"
+                style="width: 100%; justify-content: center"
+                onclick="handleSubmit()"
+              >
+                Send Message →
+              </button>
+            </div>
+            <div>
+              <div class="contact-info-card">
+                <h3>Contact Information</h3>
+                <p>
+                  Ready to forge something great? Reach us through any of these
+                  channels.
+                </p>
+                <div class="contact-item">
+                  <div class="contact-item-icon">📧</div>
+                  <div class="contact-item-text">
+                    <div class="ci-label">Email</div>
+                    <div class="ci-val">triforgetechnologies@gmail.com</div>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <div class="contact-item-icon">📱</div>
+                  <div class="contact-item-text">
+                    <div class="ci-label">WhatsApp / Phone</div>
+                    <div class="ci-val">+91 9313136653</div>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <div class="contact-item-icon">🌐</div>
+                  <div class="contact-item-text">
+                    <div class="ci-label">LinkedIn</div>
+                    <div class="ci-val">
+                      https://www.linkedin.com/in/triforge-technologies-44987b415/
+                    </div>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <div class="contact-item-icon">📍</div>
+                  <div class="contact-item-text">
+                    <div class="ci-label">Location</div>
+                    <div class="ci-val">India (Remote-First)</div>
+                  </div>
+                </div>
+                <div
+                  style="
+                    border-top: 1px solid rgba(255, 255, 255, 0.08);
+                    padding-top: 1.75rem;
+                    margin-top: 0.25rem;
+                  "
+                >
+                  <p
+                    style="
+                      color: rgba(255, 255, 255, 0.35);
+                      font-size: 0.8rem;
+                      margin-bottom: 1rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.06em;
+                      font-weight: 600;
+                    "
+                  >
+                    Response Time
+                  </p>
+                  <div style="display: flex; gap: 1rem">
+                    <div
+                      style="
+                        background: rgba(0, 194, 224, 0.08);
+                        border: 1px solid rgba(0, 194, 224, 0.15);
+                        border-radius: var(--radius-md);
+                        padding: 1rem;
+                        flex: 1;
+                        text-align: center;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: var(--font-display);
+                          font-size: 1.25rem;
+                          font-weight: 700;
+                          color: var(--cyan-light);
+                        "
+                      >
+                        24h
+                      </div>
+                      <div
+                        style="
+                          font-size: 0.75rem;
+                          color: rgba(255, 255, 255, 0.4);
+                          margin-top: 2px;
+                        "
+                      >
+                        Email Reply
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        background: rgba(0, 194, 224, 0.08);
+                        border: 1px solid rgba(0, 194, 224, 0.15);
+                        border-radius: var(--radius-md);
+                        padding: 1rem;
+                        flex: 1;
+                        text-align: center;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: var(--font-display);
+                          font-size: 1.25rem;
+                          font-weight: 700;
+                          color: var(--cyan-light);
+                        "
+                      >
+                        2h
+                      </div>
+                      <div
+                        style="
+                          font-size: 0.75rem;
+                          color: rgba(255, 255, 255, 0.4);
+                          margin-top: 2px;
+                        "
+                      >
+                        WhatsApp Reply
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        background: rgba(0, 194, 224, 0.08);
+                        border: 1px solid rgba(0, 194, 224, 0.15);
+                        border-radius: var(--radius-md);
+                        padding: 1rem;
+                        flex: 1;
+                        text-align: center;
+                      "
+                    >
+                      <div
+                        style="
+                          font-family: var(--font-display);
+                          font-size: 1.25rem;
+                          font-weight: 700;
+                          color: var(--cyan-light);
+                        "
+                      >
+                        Free
+                      </div>
+                      <div
+                        style="
+                          font-size: 0.75rem;
+                          color: rgba(255, 255, 255, 0.4);
+                          margin-top: 2px;
+                        "
+                      >
+                        Discovery Call
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  margin-top: 1.5rem;
+                  background: rgba(255, 255, 255, 0.04);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  border-radius: var(--radius-xl);
+                  padding: 2rem;
+                "
+              >
+                <h4
+                  style="
+                    font-family: var(--font-display);
+                    font-weight: 600;
+                    color: white;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  📅 Schedule a Consultation
+                </h4>
+                <p
+                  style="
+                    font-size: 0.875rem;
+                    color: rgba(255, 255, 255, 0.45);
+                    line-height: 1.7;
+                    margin-bottom: 1.25rem;
+                  "
+                >
+                  Prefer to talk first? Book a free 30-minute discovery call.
+                  We'll discuss your goals, ask the right questions, and give
+                  you honest feedback—even if we're not the right fit.
+                </p>
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  style="width: 100%; justify-content: center"
+                  >Book Discovery Call →</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+    <footer class="footer" id="siteFooter">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 1rem;
+              "
+            >
+              <div
+                style="
+                  width: 36px;
+                  height: 36px;
+                  background: var(--gradient-primary);
+                  border-radius: var(--radius-sm);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family: var(--font-display);
+                  font-weight: 800;
+                  color: white;
+                  font-size: 14px;
+                "
+              >
+                TF
+              </div>
+              <div>
+                <span
+                  style="
+                    font-family: var(--font-display);
+                    font-weight: 700;
+                    font-size: 1.1rem;
+                    color: white;
+                  "
+                  >TriForge</span
+                ><span
+                  style="
+                    display: block;
+                    font-size: 0.65rem;
+                    color: rgba(255, 255, 255, 0.35);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                  >Technologies</span
+                >
+              </div>
+            </div>
+            <p>
+              Three minds. One vision. Building the technology foundations that
+              help businesses compete, scale, and lead.
+            </p>
+            <div class="footer-social">
+              <a
+                href="https://www.linkedin.com/in/triforge-technologies-44987b415/"
+                target="_blank"
+                class="social-btn"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+
+              <a
+                href="https://github.com/TriForgeTechnologies"
+                target="_blank"
+                class="social-btn"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                class="social-btn"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+
+              <a href=" " target="_blank" class="social-btn">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul class="footer-links">
+              <li><a href="#" onclick="navigate('about')">About Us</a></li>
+              <li><a href="#" onclick="navigate('faq')">FAQ</a></li>
+              <li><a href="#" onclick="navigate('contact')">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul class="footer-links">
+              <li>
+                <a href="#" onclick="navigate('services')">Custom Software</a>
+              </li>
+              <li>
+                <a href="#" onclick="navigate('services')">Mobile Apps</a>
+              </li>
+              <li>
+                <a href="#" onclick="navigate('services')">Web Development</a>
+              </li>
+              <li>
+                <a href="#" onclick="navigate('services')">Cloud Solutions</a>
+              </li>
+              <li>
+                <a href="#" onclick="navigate('services')">AI & Automation</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Technologies</h4>
+            <ul class="footer-links">
+              <li>
+                <a href="#" onclick="navigate('techstack')">React & Next.js</a>
+              </li>
+              <li><a href="#" onclick="navigate('techstack')">Flutter</a></li>
+              <li>
+                <a href="#" onclick="navigate('techstack')">Node.js & .NET</a>
+              </li>
+              <li>
+                <a href="#" onclick="navigate('techstack')">AWS & Azure</a>
+              </li>
+              <li>
+                <a href="#" onclick="navigate('techstack')">AI & ML Stack</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Newsletter</h4>
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.4);
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+                line-height: 1.6;
+              "
+            >
+              Monthly insights on technology trends, product building, and
+              digital transformation.
+            </p>
+            <!-- <div class="footer-newsletter">
+            <input type="email" placeholder="your@email.com">
+            <button onclick="handleNewsletterSignup()">Subscribe →</button>
+          </div> -->
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.25);
+                font-size: 0.72rem;
+                margin-top: 0.75rem;
+              "
+            >
+              No spam. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 TriForge Technologies. All rights reserved.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- WHATSAPP -->
+    <a
+      href="https://wa.me/919313136653"
+      class="wa-float"
+      target="_blank"
+      title="Chat on WhatsApp"
+      ><i class="fab fa-whatsapp"></i
+    ></a>
+
+    <!-- TOAST -->
+    <div
+      id="toast"
+      style="
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: rgba(10, 22, 40, 0.95);
+        border: 1px solid rgba(0, 194, 224, 0.3);
+        color: white;
+        padding: 0.875rem 1.75rem;
+        border-radius: var(--radius-lg);
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-shadow: 0 8px 32px rgba(0, 194, 224, 0.2);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        pointer-events: none;
+      "
+    >
+      <span id="toastMsg">Message sent!</span>
+    </div>
+
+    <script>
+      // ── PARTICLE BACKGROUND
+      (function () {
+        const c = document.getElementById("bg-canvas");
+        const ctx = c.getContext("2d");
+        let W,
+          H,
+          pts = [];
+        function resize() {
+          W = c.width = window.innerWidth;
+          H = c.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize);
+        for (let i = 0; i < 60; i++)
+          pts.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 1.8 + 0.5,
+          });
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          pts.forEach((p) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > W) p.vx *= -1;
+            if (p.y < 0 || p.y > H) p.vy *= -1;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(0,194,224,0.6)";
+            ctx.fill();
+          });
+          pts.forEach((a, i) =>
+            pts.slice(i + 1).forEach((b) => {
+              const d = Math.hypot(a.x - b.x, a.y - b.y);
+              if (d < 140) {
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = `rgba(37,99,235,${0.18 * (1 - d / 140)})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }),
+          );
+          requestAnimationFrame(draw);
+        }
+        draw();
+      })();
+
+      // ── NAVIGATION
+      function navigate(page) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        const t = document.getElementById("page-" + page);
+        if (t) {
+          t.classList.add("active");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          document
+            .querySelectorAll("[data-page]")
+            .forEach((a) =>
+              a.classList.toggle("active", a.dataset.page === page),
+            );
+          initReveal();
+          if (page === "home" || page === "techstack")
+            setTimeout(initMatrix, 500);
+          if (page === "techstack") setTimeout(initTsMatrix, 600);
+        }
+        return false;
+      }
+
+      // ── MOBILE NAV
+      function toggleMobile() {
+        document.getElementById("mobileNav").classList.toggle("open");
+      }
+
+      // ── FAQ
+      function toggleFaq(el) {
+        const item = el.closest(".faq-item");
+        const was = item.classList.contains("open");
+        document
+          .querySelectorAll(".faq-item.open")
+          .forEach((i) => i.classList.remove("open"));
+        if (!was) item.classList.add("open");
+      }
+
+      // ── TECH STACK FILTER
+      function filterTech(cat, btn) {
+        document
+          .querySelectorAll(".ts-tab")
+          .forEach((t) => t.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".ts-card").forEach((card) => {
+          const show = cat === "all" || card.dataset.cat === cat;
+          card.style.display = show ? "" : "none";
+          if (show) {
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.88)";
+            setTimeout(() => {
+              card.style.opacity = "1";
+              card.style.transform = "";
+              card.style.transition = "opacity 0.3s ease,transform 0.3s ease";
+            }, 10);
+          }
+        });
+      }
+
+      // ── SCROLL REVEAL (all types)
+      function initReveal() {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+              }
+            });
+          },
+          { threshold: 0.08 },
+        );
+        document
+          .querySelectorAll(
+            ".page.active .reveal,.page.active .reveal-left,.page.active .reveal-right,.page.active .reveal-scale,.page.active .stagger-children",
+          )
+          .forEach((el) => {
+            if (!el.classList.contains("visible")) obs.observe(el);
+          });
+      }
+
+      // ── MATRIX BARS
+      function initMatrix() {
+        document
+          .querySelectorAll("#matrixSection .matrix-fill")
+          .forEach((b) => {
+            if (b.dataset.pct) b.style.width = b.dataset.pct + "%";
+          });
+      }
+      function initTsMatrix() {
+        document.querySelectorAll("#tsMatrix .ts-matrix-fill").forEach((b) => {
+          if (b.dataset.pct) b.style.width = b.dataset.pct + "%";
+        });
+      }
+
+      // ── NAVBAR SCROLL
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("navbar")
+          .classList.toggle("scrolled", window.scrollY > 20);
+      });
+
+      // ── TOAST
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        t.style.transform = "translateX(-50%) translateY(0)";
+        setTimeout(() => {
+          t.style.transform = "translateX(-50%) translateY(100px)";
+        }, 3500);
+      }
+      function handleSubmit() {
+        showToast("✅ Message sent! We'll reply within 24 hours.");
+      }
+      function handleNewsletterSignup() {
+        showToast("🎉 Subscribed! Welcome aboard.");
+      }
+
+      // ── INIT
+      window.addEventListener("DOMContentLoaded", () => {
+        initReveal();
+        setTimeout(initMatrix, 600);
+      });
+    </script>
+  </body>
+</html>
